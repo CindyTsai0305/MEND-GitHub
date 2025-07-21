@@ -1,0 +1,32 @@
+name: Scan Template
+
+on:
+  workflow_call:
+    inputs:
+      PRODUCT_NAME:
+        required: true
+        type: string
+      PROJECT_NAME:
+        required: true
+        type: string
+
+jobs:
+  scan:
+    runs-on: windows-latest
+    env:
+      USERKEY: ${{ secrets.MEND_USERKEY }}
+    steps:
+      - name: 設定環境變數
+        run: |
+          echo "PRODUCT_NAME=${{ inputs.PRODUCT_NAME }}" >> $env:GITHUB_ENV
+          echo "PROJECT_NAME=${{ inputs.PROJECT_NAME }}" >> $env:GITHUB_ENV
+
+      - name: 確認變數
+        run: |
+          echo "PRODUCT_NAME=$env:PRODUCT_NAME"
+          echo "PROJECT_NAME=$env:PROJECT_NAME"
+
+      - name: 執行掃描腳本
+        run: |
+          echo "執行掃描..."
+          cmd.exe /c "C:\WS-OnlineScan\Scan.bat"
