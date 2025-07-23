@@ -1,0 +1,15 @@
+name: Scan
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  scan:
+    uses: CindyTsai0305/MEND-GitHub/.github/workflows/template.yml@main
+    with:
+      PRODUCT_NAME: "Cindy_Github"
+      PROJECT_NAME: "0723"
+    secrets:
+      userKey: ${{ secrets.MEND_USERKEY }}
