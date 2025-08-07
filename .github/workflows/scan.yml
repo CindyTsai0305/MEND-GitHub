@@ -1,0 +1,15 @@
+name: Scan
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  call-mend-scan:
+    uses: Bella-yuuu/bella-mend/.github/workflows/mendtemp.yml@main
+    with:
+      PRODUCT_NAME: "Bella_Github"
+      PROJECT_NAME: "0805"
+    secrets:
+      userKey: ${{ secrets.MEND_USERKEY }}
