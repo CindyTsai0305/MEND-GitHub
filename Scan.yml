@@ -10,6 +10,6 @@ jobs:
     uses: CindyTsai0305/MEND-GitHub/.github/workflows/template.yml@main
     with:
       PRODUCT_NAME: "Cindy_Github"
-      PROJECT_NAME: "0723"
+      PROJECT_NAME: "0807"
     secrets:
       userKey: ${{ secrets.MEND_USERKEY }}
