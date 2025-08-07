@@ -9,24 +9,28 @@ on:
       PROJECT_NAME:
         required: true
         type: string
+    secrets:
+      userKey:
+        required: true
 
 jobs:
   scan:
-    runs-on: windows-latest
+    runs-on: [self-hosted, windows]
     env:
-      USERKEY: ${{ secrets.MEND_USERKEY }}
-    steps:
-      - name: 設定環境變數
-        run: |
-          echo "PRODUCT_NAME=${{ inputs.PRODUCT_NAME }}" >> $env:GITHUB_ENV
-          echo "PROJECT_NAME=${{ inputs.PROJECT_NAME }}" >> $env:GITHUB_ENV
+      userKey: ${{ secrets.userKey }}
+      productName: ${{ inputs.PRODUCT_NAME }}
+      projectName: ${{ inputs.PROJECT_NAME }}
 
-      - name: 確認變數
+    steps:
+      - name: 確認環境變數
         run: |
-          echo "PRODUCT_NAME=$env:PRODUCT_NAME"
-          echo "PROJECT_NAME=$env:PROJECT_NAME"
+          echo userKey = %userKey%
+          echo productName = %productName%
+          echo projectName = %projectName%
+        shell: cmd
 
       - name: 執行掃描腳本
         run: |
-          echo "執行掃描..."
-          cmd.exe /c "C:\WS-OnlineScan\Scan.bat"
+          echo 開始執行 Mend 掃描...
+          C:\WS-OnlineScan\Scan.bat
+        shell: cmd
